@@ -93,14 +93,14 @@ def main():
     tokenizer = CharTokenizer()
 
     max_length = 72  # Maximum length of text sequences
-    train_encodings, train_labels = tokenize_data(tokenizer, train_df, max_length)
-    val_encodings, val_labels = tokenize_data(tokenizer, val_df, max_length)
-    test_encodings, test_labels = tokenize_data(tokenizer, test_df, max_length)
+    train_encodings, train_attention_masks, train_labels = tokenize_data(tokenizer, train_df, max_length)
+    val_encodings, val_attention_masks, val_labels = tokenize_data(tokenizer, val_df, max_length)
+    test_encodings, test_attention_masks, test_labels = tokenize_data(tokenizer, test_df, max_length)
 
     # Create Dataset objects
-    train_dataset = CustomDataset(train_encodings, train_labels)
-    val_dataset = CustomDataset(val_encodings, val_labels)
-    test_dataset = CustomDataset(test_encodings, test_labels)
+    train_dataset = CustomDataset(train_encodings, train_attention_masks, train_labels)
+    val_dataset = CustomDataset(val_encodings, val_attention_masks, val_labels)
+    test_dataset = CustomDataset(test_encodings, test_attention_masks, test_labels)
 
     # Define BERT configuration
     config = BertConfig(
